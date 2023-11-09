@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "pyvim"
+version = "0.1.0"
+description = ""
+authors = ["John Kaustinen <jokausti@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+textual = {extras = ["syntax"], version = "^0.41.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+textual-dev = "^1.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+exclude = [".venv"]
+venvPath = "."
+venv = ".venv"
+
+[tool.poetry.scripts]
+main = "pyvim.main:main"
