@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyvim"
+name = "pyrenees"
 version = "0.1.0"
 description = ""
 authors = ["John Kaustinen <jokausti@gmail.com>"]
@@ -23,4 +23,4 @@ venvPath = "."
 venv = ".venv"
 
 [tool.poetry.scripts]
-main = "pyvim.main:main"
+main = "pyrenees.main:main"
