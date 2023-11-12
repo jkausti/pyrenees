@@ -25,14 +25,13 @@ def pyrenees(path: Optional[str] = None):
     """
 
     if path:
+        path = os.path.abspath(path)
         if os.path.isfile(path):
             buf = Buffer(Path(path))
         else:
             buf = Buffer()
     else:
         buf = Buffer()
-
-    print(buf.text)
 
     main(buf=buf)
 
@@ -45,11 +44,14 @@ class TextAreaExample(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield TextArea(self.buffer.text, language="python")
+        self.buffer.language = "python"
+        self.buffer.theme = "monokai"
+        self.buffer.text = self.buffer.get_text()
+        # text_area = Buffer(self.buffer.text, language="python", theme="dracula")
+        yield self.buffer
 
 
 def main(buf: Buffer):
-    print("running from main")
     app = TextAreaExample(buf)
     app.run()
 
