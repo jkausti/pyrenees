@@ -1,0 +1,18 @@
+/* Defining screen specific styles */
+Screen {
+    layers: below above;
+}
+
+Header {
+    layer: below;
+}
+TextArea {
+    layer: below;
+}
+
+/* FilenameInput style */
+FilenameInput {
+    dock: bottom;
+    layer: above;
+}
+

@@ -1,5 +1,5 @@
 from textual.app import App, ComposeResult
-from textual.widgets import TextArea, Header
+from textual.widgets import Header
 from pathlib import Path
 from pyrenees.src.buffer import Buffer
 from pyrenees.src.config import Config
@@ -32,11 +32,17 @@ def pyrenees(path: Optional[str] = None):
             buf = Buffer()
     else:
         buf = Buffer()
+    
+    app = TextAreaExample(buf)
+    app.run()
 
-    main(buf=buf)
+
 
 
 class TextAreaExample(App):
+    
+    CSS_PATH = './src/styles/main_styles.tcss'
+
     def __init__(self, buffer):
         super().__init__()
         self.buffer = buffer
@@ -51,9 +57,6 @@ class TextAreaExample(App):
         yield self.buffer
 
 
-def main(buf: Buffer):
-    app = TextAreaExample(buf)
-    app.run()
 
 
 # for running it in --dev mode
