@@ -16,3 +16,8 @@ FilenameInput {
     layer: above;
 }
 
+Label {
+    dock: bottom;
+    layer: above;
+}
+

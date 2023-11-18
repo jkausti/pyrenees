@@ -1,20 +1,15 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Header
+from textual.widgets import Header, Label
 from pathlib import Path
 from pyrenees.src.buffer import Buffer
 from pyrenees.src.config import Config
 import rich_click as click
 import os
 from typing import Optional
+from textual import on
 
-# TEXT = """\
-#         def hello(name):
-#             print(f"hello {name}")
-#
-#         def goodbye(name):
-#             print(f"goodbye {name}")
-#
-# """
+from pyrenees.src.widgets.basic import FilenameInput
+from pyrenees.src.io import save
 
 
 @click.command
@@ -43,7 +38,7 @@ class TextAreaExample(App):
     
     CSS_PATH = './src/styles/main_styles.tcss'
 
-    def __init__(self, buffer):
+    def __init__(self, buffer: Buffer):
         super().__init__()
         self.buffer = buffer
         self.config = Config(os.getcwd())
@@ -56,9 +51,28 @@ class TextAreaExample(App):
         # text_area = Buffer(self.buffer.text, language="python", theme="dracula")
         yield self.buffer
 
+    # Save file
+    @on(Buffer.Saved)
+    def save(self, message: Buffer.Saved) -> None:
+        # print(message.saved_text)
+        if self.buffer.path:
+            result = save(content=message.saved_text, path=self.buffer.path)
+            self.mount(Label(result))
+        else:
+            self.input_widget = FilenameInput()
+            self.input_widget.insert_text_at_cursor(f"{self.config.cwd}/")
+            self.mount(self.input_widget)
+            self.input_widget.focus()
+            
+
+    @on(FilenameInput.Submitted)
+    def save_input(self, event: FilenameInput.Submitted):
+        # val = self.query_one(FilenameInput).value
+        # print(event.value)
+        self.buffer.path = Path(event.value)
+        result = save(content=self.buffer.text, path=self.buffer.path)
+        self.input_widget.remove()
+        self.mount(Label(result))
+        self.buffer.focus()
 
 
-
-# for running it in --dev mode
-# if __name__ == "__main__":
-# main()
