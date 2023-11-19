@@ -27,16 +27,13 @@ def pyrenees(path: Optional[str] = None):
             buf = Buffer()
     else:
         buf = Buffer()
-    
+
     app = TextAreaExample(buf)
     app.run()
 
 
-
-
 class TextAreaExample(App):
-    
-    CSS_PATH = './src/styles/main_styles.tcss'
+    CSS_PATH = "./src/styles/main_styles.tcss"
 
     def __init__(self, buffer: Buffer):
         super().__init__()
@@ -63,7 +60,8 @@ class TextAreaExample(App):
             self.input_widget.insert_text_at_cursor(f"{self.config.cwd}/")
             self.mount(self.input_widget)
             self.input_widget.focus()
-            
+
+        return 5
 
     @on(FilenameInput.Submitted)
     def save_input(self, event: FilenameInput.Submitted):
@@ -74,5 +72,3 @@ class TextAreaExample(App):
         self.input_widget.remove()
         self.mount(Label(result))
         self.buffer.focus()
-
-
