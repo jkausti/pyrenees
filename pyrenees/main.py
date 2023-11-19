@@ -61,7 +61,6 @@ class TextAreaExample(App):
             self.mount(self.input_widget)
             self.input_widget.focus()
 
-        return 5
 
     @on(FilenameInput.Submitted)
     def save_input(self, event: FilenameInput.Submitted):
